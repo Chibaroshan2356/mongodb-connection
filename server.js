@@ -1,46 +1,18 @@
-const http = require('http');
-
-let users = []; 
-
-const server = http.createServer((req, res) => {
-    const urlParts = new URL(req.url, `http://${req.headers.host}`);
-    const username = urlParts.searchParams.get("username");
-    const password = urlParts.searchParams.get("password");
-
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-
-    if (req.method === 'GET' && req.url.startsWith('/signup')) {
-        if (username && password) {
-            if (users.some(user => user.username === username)) {
-                res.end("<h3>Signup Failed! Username already exists.</h3>");
-            } else {
-                users.push({ username, password });
-                console.log("Users:", users);
-                res.end("<h3>Signup Successful!</h3>");
-            }
-        } else {
-            res.end("<h3>Signup Failed! Provide username and password.</h3>");
-        }
-    } 
-    
-    else if (req.method === 'POST' && req.url === '/login') {
-        let body = '';
-        req.on('data', chunk => body += chunk);
-        req.on('end', () => {
-            const data = new URLSearchParams(body);
-            const user = users.find(u => u.username === data.get("username") && u.password === data.get("password"));
-            res.end(user ? "<h3>Login Successful!</h3>" : "<h3>Invalid Username or Password</h3>");
-        });
-    } 
-    
-    else if (req.method === 'GET' && req.url === '/users') {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(users, null, 2));
-    } 
-    
-    else {
-        res.end("<h3>Invalid Request</h3>");
+http = require('http');
+url = require('url');
+querystring = require('querystring');
+function onRequest(req, res) {
+    var path = url.parse(req.url).pathname;
+    var query = url.parse(req.url).query;
+    var email = querystring.parse(query)["email"];
+    var password = querystring.parse(query)["password"];
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    if (email == "gowthamm.23it@kongu.edu" && (password == "23ITR049" || password == "23itr049")) {
+        res.write("Logged in Successfully");
+    } else {
+        res.write("Login Failed");
     }
-});
-
-server.listen(3232, () => console.log('Server running on port 3232'));
+    res.end();
+}
+server = http.createServer(onRequest);
+server.listen(4004, () => console.log('Server running on http://localhost:3000'));
