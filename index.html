@@ -1,23 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Signup & Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+
+.container {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            width: 350px;
+            text-align: left;
+        }
+        input {
+            width: 90%; 
+            padding: 10px; 
+            margin-bottom: 15px; 
+            font-size: 16px; 
+        }
+.login{
+            width: 95%; 
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+.login:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
-    <h2>Signup</h2>
-    <form action="http://localhost:3232/signup" method="get">
-        Username: <input type="text" name="username"><br><br>
-        Password: <input type="password" name="password"><br><br>
-        <input type="submit" value="Signup">
-    </form>
+<div class="container">
+    <form action="http://localhost:4004/server" method="get">
+        <label for="email">Email:</label>
+        <input type="email" name="email" required/>
 
-    <h2>Login</h2>
-    <form action="http://localhost:3232/login" method="post">
-        Username: <input type="text" name="username"><br><br>
-        Password: <input type="password" name="password"><br><br>
-        <input type="submit" value="Login">
+        <label for="password">Password:</label>
+        <input type="password" name="password" required/>
+
+        <input type="submit" value="Login" class="login" name="login"/>
     </form>
+</div>
 
 </body>
 </html>
